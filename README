@@ -46,6 +46,10 @@ On en déduis que les ports 22(ssh) et 8000(http) sont ouverts
 Q3
 On peut faire du banner grabbing
 
+Avec un curl 192.168.122.122 8000
+
+On a le code html d'une page web
+
 Q4
 On essai de se connecter via le protocol ssh sur l'adresse 192.168.122.122 puisque le port 22 est ouvert
 
@@ -82,5 +86,4 @@ ETAPE 2
 
 Q1
 Toujours connecté en tant que root@192.168.122.122, avec la commande ifconfig on en déduis l'adresse local du réseau : 192.168.99.0
-
 
