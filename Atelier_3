@@ -1,0 +1,47 @@
+ATELIER 3
+
+Q1
+On lance la commande nmap --script vuln 192.168.99.172 depuis Pirate 1
+
+Temps d'exécution 327s !
+
+Premier service vulnérable:
+
+21/tcp   open  ftp
+| ftp-vsftpd-backdoor:
+|   VULNERABLE:
+|   vsFTPd version 2.3.4 backdoor
+|     State: VULNERABLE (Exploitable)
+|     IDs:  CVE:CVE-2011-2523  BID:48539
+|       vsFTPd version 2.3.4 backdoor, this was reported on 2011-07-04.
+|     Disclosure date: 2011-07-03
+|     Exploit results:
+|       Shell command: id
+|       Results: uid=0(root) gid=0(root)
+|     References:
+|       https://github.com/rapid7/metasploit-framework/blob/master/modules/exploits/unix/ftp/vsftpd_234_backdoor.rb
+|       https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2011-2523
+|       https://www.securityfocus.com/bid/48539
+|_      http://scarybeastsecurity.blogspot.com/2011/07/alert-vsftpd-download-backdoored.html
+
+Sur le port 21,
+Il y a un backdoor, facilement exploitable pour une personne initiée (celle ci est d'ailleurs documenté : CVE:CVE-2011-2523  BID:48539)
+On remarque aussi que l'exécution de commandes Shell est autorisé.
+
+Q2
+Une procédure suseptible de fonctionner, depuis une distribution Kali
+Lancer metasploit avec la commande : msfconsole
+
+On remarque que le port 5423 est ouvert (postgresql), il est sans doute possible de faire de l'injection SQL.
+On pourrait à cet affet ajouter des requêtes afin d'en tirer des informations intéressantes (mot de passe par exemple)
+Une requête de type: SELECT password FROM Users WHERE name = '';
+
+Q3
+D'après la commande de Q1 on remarque des vulnérabilités sur les ports:
+25 (smtp)
+80 (http)
+1099 (rmiregistry)
+5432 (postgresql)
+8180
+
+Q4
