@@ -1,3 +1,86 @@
-ATELIER 1
+Démarrer Open-VPN
+Ouvrir la topo secu-base sur GN3
+
+ETAPE 1
 
 Q1
+On notera que l'adresse IPv4 de la machine Pirate 3 est : 192.168.122.242/24 sur l'interface eth0
+
+Avec la commande nmap -sn 192.168.122.0/24 on en déduis:
+
+root@pirate3:~# nmap -sn 192.168.122.0/24
+Starting Nmap 7.80 ( https://nmap.org ) at 2020-04-02 08:06 UTC
+Nmap scan report for capgchamb6 (192.168.122.1)
+Host is up (0.0010s latency).
+MAC Address: 52:54:00:17:82:29 (QEMU virtual NIC)
+Nmap scan report for vulnscan (192.168.122.7)
+Host is up (0.0013s latency).
+MAC Address: 0C:D3:A7:1D:E0:00 (Unknown)
+Nmap scan report for 192.168.122.122
+Host is up (0.00079s latency).
+MAC Address: 0C:D3:A7:7D:69:01 (Unknown)
+Nmap scan report for controller (192.168.122.124)
+Host is up (0.00096s latency).
+MAC Address: 0C:D3:A7:C5:B9:01 (Unknown)
+Nmap scan report for R1 (192.168.122.221)
+Host is up (0.0024s latency).
+MAC Address: 0C:D3:A7:A6:6E:01 (Unknown)
+Nmap scan report for pirate3 (192.168.122.242)
+Host is up.
+
+Par déduction la cible est 192.168.122.122
+
+
+Q2
+Avec la commande nmap sans paramètre:
+
+Nmap scan report for 192.168.122.122
+Host is up (0.00070s latency).
+Not shown: 998 closed ports
+PORT     STATE SERVICE
+22/tcp   open  ssh
+8000/tcp open  http-alt
+
+On en déduis que les ports 22(ssh) et 8000(http) sont ouverts
+
+Q3
+On peut faire du banner grabbing
+
+Q4
+On essai de se connecter via le protocol ssh sur l'adresse 192.168.122.122 puisque le port 22 est ouvert
+
+root@pirate3:~# ssh 192.168.122.122
+The authenticity of host '192.168.122.122 (192.168.122.122)' can't be established.
+RSA key fingerprint is SHA256:XChg1yDQwy4L4OcgJKFPKRm84ArpYp/HRzf4heX+Fr8.
+Are you sure you want to continue connecting (yes/no)? y
+Please type 'yes' or 'no': yes
+Warning: Permanently added '192.168.122.122' (RSA) to the list of known hosts.
+root@192.168.122.122's password:
+
+
+BusyBox v1.23.2 (2016-01-02 12:56:51 CET) built-in shell (ash)
+
+  _______                     ________        __
+ |       |.-----.-----.-----.|  |  |  |.----.|  |_
+ |   -   ||  _  |  -__|     ||  |  |  ||   _||   _|
+ |_______||   __|_____|__|__||________||__|  |____|
+          |__| W I R E L E S S   F R E E D O M
+ -----------------------------------------------------
+ CHAOS CALMER (15.05.1, r48532)
+ -----------------------------------------------------
+  * 1 1/2 oz Gin            Shake with a glassful
+  * 1/4 oz Triple Sec       of broken ice and pour
+  * 3/4 oz Lime Juice       unstrained into a goblet.
+  * 1 1/2 oz Orange Juice
+  * 1 tsp. Grenadine Syrup
+ -----------------------------------------------------
+root@OpenWrt:~#
+
+Dommage pour l'utilisateur il a laissé un mot de passe facile (testtest), je peux ainsi me connecter en tant que root@192.168.122.122
+
+ETAPE 2
+
+Q1
+Toujours connecté en tant que root@192.168.122.122, avec la commande ifconfig on en déduis l'adresse local du réseau : 192.168.99.0
+
+
