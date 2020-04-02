@@ -39,9 +39,10 @@ Une requête de type: SELECT password FROM Users WHERE name = '';
 Q3
 D'après la commande de Q1 on remarque des vulnérabilités sur les ports:
 25 (smtp)
-80 (http)
+80 (http) !!!!
 1099 (rmiregistry)
 5432 (postgresql)
 8180
 
 Q4
+On pourrai faire un pentest afin de déterminer la vunlérabilité du système
