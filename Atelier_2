@@ -88,8 +88,7 @@ On remarque l'invite de commande root@metasploitable:~#
 
 Q3
 Comme remarqué à la Q2, beacoup de ports sont ouvert
-On pourrait se connecter en ftp, ssh, TELNET (danger, aucun chiffrement), smtp...
-
+On pourrait se connecter en ftp, ssh, TELNET (danger, aucun chiffrement), login, shell !,...
 Q4
 Après quelques essai on se connecte en ssh:
 
