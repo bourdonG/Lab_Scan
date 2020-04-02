@@ -46,14 +46,22 @@ On en déduis que les ports 22(ssh) et 8000(http) sont ouverts
 Q3
 On peut faire du banner grabbing
 
-Avec un curl 192.168.122.122 8000
+Avec un curl 192.168.122.122:8000
 
-On a le code html d'une page web
+On a le code HTML d'une page web, on peut le vérifier en ouvrant une page web et copier/coller le code.
+
+Avec la commande netcat, nc 192.168.122.122 22
+
+root@pirate3:~# nc 192.168.122.122 22
+SSH-2.0-dropbear_2015.67
+▒▒% o▒▒▒▒▒▒▒i▒1Pdiffie-hellman-group14-sha1,diffie-hellman-group1-sha1,kexguess2@matt.ucc.asn.aussh-rsa,ssh-dss=aes128-ctr,aes256-ctr,aes128-cbc,aes256-cbc,3des-ctr,3des-cbc=aes128-ctr,aes256-ctr,aes128-cbc,aes256-cbc,3des-ctr,3des-cbchmac-sha1,hmac-md5hmac-sha1,hmac-md5nonenone▒g}14Y
+
+On en déduis du SSH version 2.0
 
 Q4
 On essai de se connecter via le protocol ssh sur l'adresse 192.168.122.122 puisque le port 22 est ouvert
 
-root@pirate3:~# ssh 192.168.122.122
+root@pirate3:~# ssh root@192.168.122.122
 The authenticity of host '192.168.122.122 (192.168.122.122)' can't be established.
 RSA key fingerprint is SHA256:XChg1yDQwy4L4OcgJKFPKRm84ArpYp/HRzf4heX+Fr8.
 Are you sure you want to continue connecting (yes/no)? y
@@ -85,5 +93,89 @@ Dommage pour l'utilisateur il a laissé un mot de passe facile (testtest), je pe
 ETAPE 2
 
 Q1
-Toujours connecté en tant que root@192.168.122.122, avec la commande ifconfig on en déduis l'adresse local du réseau : 192.168.99.0
+On se connecte sur pirate 1
+Avec ip a on en déduis : 192.168.99.146
 
+Avec ip route on en déduis la passerelle 192.168.99.1
+
+Avec nmap -sn:
+
+nmap -sn 192.168.99.0/24
+Starting Nmap 7.80 ( https://nmap.org ) at 2020-04-02 09:27 UTC
+Nmap scan report for OpenWrt.lan (192.168.99.1)
+Host is up (0.0011s latency).
+MAC Address: 0C:D3:A7:7D:69:00 (Unknown)
+Nmap scan report for WIN-JBJ87HGI36A.lan (192.168.99.130)
+Host is up (0.0011s latency).
+MAC Address: 0C:D3:A7:2B:A3:00 (Unknown)
+Nmap scan report for ie8winxp.lan (192.168.99.166)
+Host is up (0.0013s latency).
+MAC Address: 0C:D3:A7:1B:49:00 (Unknown)
+Nmap scan report for 192.168.99.172
+Host is up (0.00083s latency).
+MAC Address: 0C:D3:A7:5B:91:00 (Unknown)
+Nmap scan report for pirate2.lan (192.168.99.186)
+Host is up (0.00092s latency).
+MAC Address: 0C:D3:A7:84:35:00 (Unknown)
+Nmap scan report for pirate1.lan (192.168.99.146)
+Host is up.
+
+On en déduis que 192.168.99.172 n'a pas de résolution de nom inverse
+
+Q2
+On installe le package rsh-client et on se connecte en rsh 192.168.99.172
+
+On remarque que beaucoup de ports sont ouverts sur cette machine:
+
+root@pirate1:~# nmap 192.168.99.172
+Starting Nmap 7.80 ( https://nmap.org ) at 2020-04-02 09:32 UTC
+Nmap scan report for 192.168.99.172
+Host is up (0.00078s latency).
+Not shown: 977 closed ports
+PORT     STATE SERVICE
+21/tcp   open  ftp
+22/tcp   open  ssh
+23/tcp   open  telnet
+25/tcp   open  smtp
+53/tcp   open  domain
+80/tcp   open  http
+111/tcp  open  rpcbind
+139/tcp  open  netbios-ssn
+445/tcp  open  microsoft-ds
+512/tcp  open  exec
+513/tcp  open  login
+514/tcp  open  shell
+1099/tcp open  rmiregistry
+1524/tcp open  ingreslock
+2049/tcp open  nfs
+2121/tcp open  ccproxy-ftp
+3306/tcp open  mysql
+5432/tcp open  postgresql
+5900/tcp open  vnc
+6000/tcp open  X11
+6667/tcp open  irc
+8009/tcp open  ajp13
+8180/tcp open  unknown
+MAC Address: 0C:D3:A7:5B:91:00 (Unknown)
+
+On se connecte ensuite en rsh
+
+root@pirate1:~# rsh 192.168.99.172
+Last login: Wed Apr  1 08:53:20 EDT 2020 from :0.0 on pts/0
+Linux metasploitable 2.6.24-16-server #1 SMP Thu Apr 10 13:58:00 UTC 2008 i686
+
+The programs included with the Ubuntu system are free software;
+the exact distribution terms for each program are described in the
+individual files in /usr/share/doc/*/copyright.
+
+Ubuntu comes with ABSOLUTELY NO WARRANTY, to the extent permitted by
+applicable law.
+
+To access official Ubuntu documentation, please visit:
+http://help.ubuntu.com/
+You have mail.
+root@metasploitable:~#
+
+On remarque l'invite de commande root@metasploitable:~#
+
+Q3
