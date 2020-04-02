@@ -32,7 +32,7 @@ Q2
 Une procédure suseptible de fonctionner, depuis une distribution Kali
 Lancer metasploit avec la commande : msfconsole
 
-On remarque que le port 5423 est ouvert (postgresql), il est sans doute possible de faire de l'injection SQL.
+On remarque que le port 5423 est ouvert (postgresql) et le port 80, il est sans doute possible de faire de l'injection SQL.
 On pourrait à cet affet ajouter des requêtes afin d'en tirer des informations intéressantes (mot de passe par exemple)
 Une requête de type: SELECT password FROM Users WHERE name = '';
 
