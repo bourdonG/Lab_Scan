@@ -179,3 +179,35 @@ root@metasploitable:~#
 On remarque l'invite de commande root@metasploitable:~#
 
 Q3
+Comme remarqué à la Q2, beacoup de ports sont ouvert
+On pourrait se connecter en ftp, ssh, TELNET (danger, aucun chiffrement), smtp...
+
+Q4
+Après quelques essai on se connecte en ssh:
+
+root@pirate1:~# ssh msfadmin@192.168.99.172
+The authenticity of host '192.168.99.172 (192.168.99.172)' can't be established.
+RSA key fingerprint is SHA256:BQHm5EoHX9GCiOLuVscegPXLQOsuPs+E9d/rrJB84rk.
+Are you sure you want to continue connecting (yes/no)? yes
+Warning: Permanently added '192.168.99.172' (RSA) to the list of known hosts.
+msfadmin@192.168.99.172's password:
+Permission denied, please try again.
+msfadmin@192.168.99.172's password:
+Permission denied, please try again.
+msfadmin@192.168.99.172's password:
+Linux metasploitable 2.6.24-16-server #1 SMP Thu Apr 10 13:58:00 UTC 2008 i686
+
+The programs included with the Ubuntu system are free software;
+the exact distribution terms for each program are described in the
+individual files in /usr/share/doc/*/copyright.
+
+Ubuntu comes with ABSOLUTELY NO WARRANTY, to the extent permitted by
+applicable law.
+
+To access official Ubuntu documentation, please visit:
+http://help.ubuntu.com/
+No mail.
+Last login: Wed Feb  1 16:17:51 2017
+msfadmin@metasploitable:~$
+
+Le mot de passe était identique au login...mfsadmin
